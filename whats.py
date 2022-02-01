@@ -1,28 +1,26 @@
-#importar bibliotecas
-
-from selenium import webdriver
 import time
 from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+chromepath = r'./chromedriver.exe'
 options = webdriver.ChromeOptions() 
 options.add_argument("user-data-dir=C:\\Users\\Igor\\AppData\\Local\\Google\\Chrome\\User Data")
+driver = webdriver.Chrome(executable_path=chromepath, chrome_options=options)
 
 
-
-
-#Navegar até o whatsapp web
-driver = webdriver.Chrome(executable_path=r'./chromedriver.exe', chrome_options=options)
 driver.get('https://web.whatsapp.com')
-time.sleep(15)
+time.sleep(20)
 #definir contatos, grupos e mensagem
-contatos =['Teste']
-mensagem = ['Testando, se você receber essa mensagem, é o meu Bot']
+contato = ['Teste']
+mensagem = 'se essa mensagem chegar pra ti é porque funcionou skks'
 
 # Buscar contatos/grupos
 def buscar_contato(contato):
    campo_pesquisa = driver.find_element_by_xpath('//div[contains(@class,"copyable-text selectable-text" )]')
    time.sleep(3)
    campo_pesquisa.click()
-   campo_pesquisa.send_keys(contatos)
+   campo_pesquisa.send_keys(contato)
    campo_pesquisa.send_keys(Keys.ENTER)
 
 def enviar_mensagem(mensagem):
@@ -32,13 +30,9 @@ def enviar_mensagem(mensagem):
     campo_mensagem[1].send_keys(mensagem)
     campo_mensagem[1].send_keys(Keys.ENTER)
     
-for contato in contatos:
+for contato in contato:
     buscar_contato(contato)
     enviar_mensagem(mensagem)
     
+    
 
-
-
-# Enviar mensagens 
-# campo de pesquisa -> copyable-text selectable-text
-# campo de mensagem privada -> copyable-text selectable-text
